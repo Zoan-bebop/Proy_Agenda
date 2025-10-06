@@ -21,6 +21,28 @@ class SubjectController extends Controller
     }
 
     /**
+     * Show the form for creating a new subject
+     */
+    public function create()
+    {
+        return view('subjects.create');
+    }
+
+    /**
+     * Show the form for editing a subject
+     */
+    public function edit(Subject $subject)
+    {
+        // Check if the subject belongs to the authenticated user
+        if ($subject->user_id !== Auth::id()) {
+            return redirect()->route('subjects.index')
+                           ->with('error', 'No tienes permiso para editar esta materia');
+        }
+
+        return view('subjects.edit', compact('subject'));
+    }
+
+    /**
      * Store a new subject
      */
     public function store(Request $request)
@@ -58,9 +80,10 @@ class SubjectController extends Controller
         $subject->update([
             'name' => $request->name,
             'description' => $request->description,
+            'status' => $request->status ?? $subject->status,
         ]);
 
-        return redirect()->back()->with('success', 'Materia actualizada exitosamente');
+        return redirect()->route('subjects.index')->with('success', 'Materia actualizada exitosamente');
     }
 
     /**

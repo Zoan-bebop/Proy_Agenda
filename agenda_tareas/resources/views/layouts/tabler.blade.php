@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler-socials.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     
     <!-- FullCalendar CSS y JS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
@@ -455,17 +456,17 @@
 
     {{-- 🆕 Barra de navegación vertical IZQUIERDA --}}
     <div class="nav-buttons">
-        <a href="{{ route('auth.home') }}" class="nav-btn {{ Request::routeIs('auth.home') ? 'active' : '' }}">
-            <i class="ti ti-home"></i>
-            <span>Home</span>
+        <a href="{{ route('auth.home') }}" class="nav-btn {{ Request::routeIs('auth.home') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Inicio">
+            <i class="bi bi-house-fill"></i>
         </a>
-        <a href="{{ route('auth.dashboard') }}" class="nav-btn {{ Request::routeIs('auth.dashboard') ? 'active' : '' }}">
-            <i class="ti ti-chart-bar"></i>
-            <span>Stats</span>
+        <a href="{{ route('auth.dashboard') }}" class="nav-btn {{ Request::routeIs('auth.dashboard') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Estadísticas">
+            <i class="bi bi-bar-chart-fill"></i>
         </a>
-        <a href="{{ route('auth.pomodoro') }}" class="nav-btn {{ Request::routeIs('auth.pomodoro') ? 'active' : '' }}">
-            <i class="ti ti-clock"></i>
-            <span>Timer</span>
+        <a href="{{ route('auth.pomodoro') }}" class="nav-btn {{ Request::routeIs('auth.pomodoro') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Pomodoro">
+            <i class="bi bi-alarm-fill"></i>
+        </a>
+        <a href="{{ route('subjects.index') }}" class="nav-btn {{ Request::routeIs('subjects.index') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Materias">
+            <i class="bi bi-journal-bookmark-fill"></i>
         </a>
     </div>
 
@@ -647,5 +648,17 @@
     </script>
 
     @stack('scripts')
+
+    <script>
+        // Inicializar todos los tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            const tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner bg-dark"></div></div>'
+                });
+            });
+        });
+    </script>
 </body>
 </html>

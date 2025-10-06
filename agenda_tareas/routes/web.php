@@ -46,6 +46,9 @@ Route::middleware(['auth'])->group(function () {
     // 🏠 Home privado - Panel de Tareas (UNA SOLA RUTA)
     Route::get('/home', [TaskController::class, 'index'])->name('auth.home');
     
+    // 📚 Materias (CRUD completo)
+    Route::resource('subjects', SubjectController::class);
+    
     // 🍅 Pomodoro
     Route::get('/pomodoro', function () {
         return view('auth.pomodoro');

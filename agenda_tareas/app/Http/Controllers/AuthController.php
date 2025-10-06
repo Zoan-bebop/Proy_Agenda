@@ -16,19 +16,37 @@ class AuthController extends Controller
     // Procesar login
     public function login(Request $request)
     {
+        // 1. Ver los datos que llegan del formulario
+        // dd('LOGIN REQUEST', $request->all());
+
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
+        // 2. Ver las credenciales validadas y el usuario encontrado (si existe)
+        // dd([
+        //     'credenciales_enviadas' => $credentials,
+        //     'usuario_encontrado' => Auth::getProvider()->retrieveByCredentials($credentials)
+        // ]);
+
+        // Si quieres ver las credenciales validadas, descomenta la siguiente línea
+        //dd('CREDENTIALS', $credentials);
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            // Depuración en caso de éxito: usuario autenticado y ruta de redirección
+            // dd('LOGIN SUCCESS', Auth::user(), route('home'));
+
             return redirect()->route('home'); // o tu ruta principal
         }
 
-        return back()->withErrors([
-            'email' => 'Las credenciales no coinciden con nuestros registros.',
-        ]);
+        // Depuración en caso de fallo de autenticación
+
+        // return back()->withErrors([
+        //     'email' => 'Las credenciales no coinciden con nuestros registros.',
+        // ]);
     }
 
     // Cerrar sesión

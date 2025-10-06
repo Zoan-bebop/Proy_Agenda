@@ -18,14 +18,14 @@ class UsuarioController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:100',
             'email' => 'required|email|unique:usuarios,email',
-            'password' => 'required|min:6|confirmed',
+            'contrasenia' => 'required|min:4|confirmed',
         ]);
 
         Usuario::create([
             'nombre' => $request->nombre,
             'email' => $request->email,
             'contrasenia' => Hash::make($request->password),
-            'estado' => 'activo',
+            'estado' => 1,
             'rol_id' => 2, // Por ejemplo: 2 = usuario normal
         ]);
 

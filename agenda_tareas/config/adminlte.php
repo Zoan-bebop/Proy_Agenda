@@ -329,49 +329,83 @@ return [
         ],
         ['header' => 'MENU:'],
         [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            // 'text' => '',
+            // 'url' => 'adminsettings',
+            // 'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            // 'text' => 'change_password',
+            // 'url' => 'admin/settings',
+            // 'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'text' => 'multilevel',
+            'text' => 'Tareas',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'level_one',
+                    'text' => 'Crear Tarea',
+                    'url' => '#',
+                ],
+                                [
+                    'text' => 'Editar Tarea',
+                    'url' => '#',
+                ],
+                                [
+                    'text' => 'Listar Tareas',
+                    'url' => '#',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Materias',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Crear Materia',
                     'url' => '#',
                 ],
                 [
-                    'text' => 'level_one',
+                    'text' => 'Editar Materia',
                     'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
+                ],
                                 [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text' => 'Listar Materia',
+                    'url' => '#',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Tareas',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Crear Tarea',
+                    'url' => '#',
                 ],
                 [
-                    'text' => 'level_one',
+                    'text' => 'Editar Tarea',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Listar Tareas',
+                    'url' => '#',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Materias',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Crear Materia',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Editar Materia',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Listar Materia',
                     'url' => '#',
                 ],
             ],

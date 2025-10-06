@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RolController;
 use App\Http\Controllers\Admin\MateriaController;
 use App\Http\Controllers\Admin\EstadoController;
 use App\Http\Controllers\Admin\TareaController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +17,10 @@ use App\Http\Controllers\Admin\TareaController;
 |--------------------------------------------------------------------------
 */
 
-// Página principal → redirige al login
+// Página principal → welcome page
 Route::get('/', function () {
-    return redirect()->route('login');
-});
+    return view('auth.welcome');
+})->name('welcome');
 
 // 🟢 Login y logout
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -41,6 +42,9 @@ Route::middleware(['auth'])->group(function () {
 
     // 🏠 Home privado
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    // 🟣 Dashboard con Tabler
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
     // 🔸 Rutas de Roles
     Route::get('/roles', [RolController::class, 'index'])->name('roles.index');

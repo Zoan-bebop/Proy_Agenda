@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 
-class Notification extends Model
+class Notifications extends Model
 {
     protected $table = 'notifications';
 

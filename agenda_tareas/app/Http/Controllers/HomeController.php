@@ -14,6 +14,6 @@ class HomeController extends Controller
         }
 
         // Retorna la vista home
-        return view('home'); // o 'welcome' si esa es tu vista
+        return view('auth/home'); // o 'welcome' si esa es tu vista
     }
 }

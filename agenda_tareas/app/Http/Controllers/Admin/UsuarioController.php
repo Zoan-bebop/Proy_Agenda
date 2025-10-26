@@ -5,48 +5,40 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
-use App\Models\Rol;
-use App\Models\Persona;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
     public function index()
     {
-        $usuarios = Usuario::with(['persona', 'rol'])->get();
+        // Trae todos los usuarios (podrías agregar paginación si quieres)
+        $usuarios = Usuario::all();
         return view('admin.usuarios.index', compact('usuarios'));
     }
 
     public function create()
     {
-        $roles = Rol::all();
-        return view('admin.usuarios.create', compact('roles'));
+        // Muestra el formulario para crear un nuevo usuario
+        return view('admin.usuarios.create');
     }
 
     public function store(Request $request)
     {
+        // Validación
         $request->validate([
             'nombres' => 'required|string|max:100',
-            'apellidos' => 'required|string|max:100',
-            'email' => 'required|email|unique:personas,email',
-            'usuario' => 'required|string|unique:usuarios,usuario',
-            'password' => 'required|min:6',
-            'rol_id' => 'required|exists:roles,id'
+            'email' => 'required|email|unique:usuarios,email',
+            'password' => 'required|min:6|confirmed',
+            'rol_id' => 'required|integer'
         ]);
 
-        // Crear la persona
-        $persona = Persona::create([
+        // Crear el usuario directamente
+        Usuario::create([
             'nombres' => $request->nombres,
             'apellidos' => $request->apellidos,
-            'email' => $request->email
-        ]);
-
-        // Crear el usuario
-        Usuario::create([
-            'idPersona' => $persona->id,
-            'rol_id' => $request->rol_id,
-            'usuario' => $request->usuario,
-            'password' => Hash::make($request->password)
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'rol_id' => $request->rol_id
         ]);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario creado correctamente.');
@@ -54,25 +46,24 @@ class UsuarioController extends Controller
 
     public function edit($id)
     {
-        $usuario = Usuario::with('persona')->findOrFail($id);
-        $roles = Rol::all();
-        return view('admin.usuarios.edit', compact('usuario', 'roles'));
+        $usuario = Usuario::findOrFail($id);
+        return view('admin.usuarios.edit', compact('usuario'));
     }
 
     public function update(Request $request, $id)
     {
         $usuario = Usuario::findOrFail($id);
-        $persona = $usuario->persona;
 
-        $persona->update([
-            'nombres' => $request->nombres,
-            'apellidos' => $request->apellidos,
-            'email' => $request->email
+        $request->validate([
+            'nombres' => 'required|string|max:100',
+            'apellidos' => 'required|string|max:100',
+            'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
         ]);
 
         $usuario->update([
-            'rol_id' => $request->rol_id,
-            'usuario' => $request->usuario,
+            'nombres' => $request->nombres,
+            'apellidos' => $request->apellidos,
+            'email' => $request->email,
         ]);
 
         if ($request->filled('password')) {
@@ -87,6 +78,7 @@ class UsuarioController extends Controller
     {
         $usuario = Usuario::findOrFail($id);
         $usuario->delete();
+
         return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente.');
     }
 }

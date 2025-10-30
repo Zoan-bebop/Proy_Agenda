@@ -4,19 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Notificacion extends Model
+class Notification extends Model
 {
-    protected $table = 'notificaciones';
+    protected $table = 'notifications';
 
     protected $fillable = [
-        'tarea_id',
-        'mensaje',
-        'fecha_envio',
-        'estado'
+        'task_id',
+        'message',
+        'sent_at',
+        'status'
     ];
 
-    public function tarea()
+    public function task()
     {
-        return $this->belongsTo(Tarea::class, 'tarea_id');
+        return $this->belongsTo(Task::class, 'task_id');
     }
 }

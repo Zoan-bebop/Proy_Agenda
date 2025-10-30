@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tareas', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('usuario_id');
-            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
-            $table->unsignedBigInteger('materia_id');
-            $table->foreign('materia_id')->references('id')->on('materias')->onDelete('cascade');
-            $table->string('tema');
-            $table->date('fecha_entrega');
-            $table->unsignedBigInteger('estado_id');
-            $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('subject_id');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+            $table->string('topic');
+            $table->date('due_date');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tareas');
+        Schema::dropIfExists('tasks');
     }
 };

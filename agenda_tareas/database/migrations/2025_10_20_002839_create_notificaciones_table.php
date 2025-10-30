@@ -9,25 +9,24 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up(): void
-{
-    Schema::create('notificaciones', function (Blueprint $table) {
-        $table->id();
-        $table->unsignedBigInteger('tarea_id');
-        $table->foreign('tarea_id')->references('id')->on('tareas')->onDelete('cascade');
-        $table->string('mensaje');
-        $table->dateTime('fecha_envio')->nullable();
-        $table->enum('estado', ['pendiente', 'enviada', 'leida'])->default('pendiente');
-        $table->timestamps();
-    });
-}
-
+    public function up(): void
+    {
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('task_id');
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
+            $table->string('message');
+            $table->dateTime('sent_at')->nullable();
+            $table->enum('status', ['pending', 'sent', 'read'])->default('pending');
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('notificaciones');
+        Schema::dropIfExists('notifications');
     }
 };

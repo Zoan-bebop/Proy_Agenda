@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable; // ✅ para usar autenticación
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Hash;
 
 class Usuario extends Authenticatable
 {
@@ -22,30 +23,39 @@ class Usuario extends Authenticatable
 
     protected $hidden = [
         'contrasenia',
+        'remember_token', // 👈 ocultamos el token
     ];
 
     /**
-     * ⚙️ Laravel busca una columna 'password' por defecto.
-     * Aquí le indicamos que use nuestra columna 'contrasenia'.
+     * 🔐 Laravel busca 'password' por defecto, pero usamos 'contrasenia'.
      */
     public function getAuthPassword()
     {
         return $this->contrasenia;
     }
 
-    // ✅ Relación con el rol
+    /**
+     * ⚙️ Mutador opcional: si asignas $usuario->contrasenia = '123456',
+     * se guarda automáticamente hasheado.
+     */
+    public function setContraseniaAttribute($value)
+    {
+        $this->attributes['contrasenia'] = Hash::make($value);
+    }
+
+    /**
+     * 🔗 Relaciones
+     */
     public function rol()
     {
         return $this->belongsTo(Rol::class, 'rol_id');
     }
 
-    // ✅ Un usuario tiene muchas materias
     public function materias()
     {
         return $this->hasMany(Materia::class, 'usuario_id');
     }
 
-    // ✅ Un usuario tiene muchas tareas
     public function tareas()
     {
         return $this->hasMany(Tarea::class, 'usuario_id');

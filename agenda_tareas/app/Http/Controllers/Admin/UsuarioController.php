@@ -11,14 +11,12 @@ class UsuarioController extends Controller
 {
     public function index()
     {
-        // Trae todos los usuarios (podrías agregar paginación si quieres)
         $usuarios = Usuario::all();
         return view('admin.usuarios.index', compact('usuarios'));
     }
 
     public function create()
     {
-        // Muestra el formulario para crear un nuevo usuario
         return view('admin.usuarios.create');
     }
 
@@ -26,19 +24,19 @@ class UsuarioController extends Controller
     {
         // Validación
         $request->validate([
-            'nombres' => 'required|string|max:100',
+            'nombre' => 'required|string|max:100',
             'email' => 'required|email|unique:usuarios,email',
-            'password' => 'required|min:6|confirmed',
+            'contrasenia' => 'required|min:6|confirmed',
             'rol_id' => 'required|integer'
         ]);
 
         // Crear el usuario directamente
         Usuario::create([
-            'nombres' => $request->nombres,
-            'apellidos' => $request->apellidos,
+            'nombre' => $request->nombre,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'rol_id' => $request->rol_id
+            'contrasenia' => Hash::make($request->contrasenia),
+            'rol_id' => $request->rol_id,
+            'estado' => $request->estado ?? 'activo'
         ]);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario creado correctamente.');
@@ -55,19 +53,20 @@ class UsuarioController extends Controller
         $usuario = Usuario::findOrFail($id);
 
         $request->validate([
-            'nombres' => 'required|string|max:100',
-            'apellidos' => 'required|string|max:100',
+            'nombre' => 'required|string|max:100',
             'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
         ]);
 
         $usuario->update([
-            'nombres' => $request->nombres,
-            'apellidos' => $request->apellidos,
+            'nombre' => $request->nombre,
             'email' => $request->email,
+            'estado' => $request->estado ?? $usuario->estado,
+            'rol_id' => $request->rol_id ?? $usuario->rol_id,
         ]);
 
-        if ($request->filled('password')) {
-            $usuario->password = Hash::make($request->password);
+        // Si se envió una nueva contraseña
+        if ($request->filled('contrasenia')) {
+            $usuario->contrasenia = Hash::make($request->contrasenia);
             $usuario->save();
         }
 

@@ -26,6 +26,7 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+
 // 🟢 Registro público de nuevos usuarios
 Route::get('/register', [PublicUsuarioController::class, 'create'])->name('register');
 Route::post('/register', [PublicUsuarioController::class, 'store'])->name('register.store');

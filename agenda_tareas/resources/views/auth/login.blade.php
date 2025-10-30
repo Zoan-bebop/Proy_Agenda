@@ -1,60 +1,72 @@
-@extends('layouts.adminlte')
+@extends('layouts.app')
 
 @section('title', 'Iniciar Sesión')
 
 @section('content')
-<div class="login-box">
-    <div class="login-logo">
-        <b>Agenda</b> de Tareas
-    </div>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1><i class="fas fa-calendar-check"></i> Agenda de Tareas</h1>
+            <p>Inicia sesión para continuar</p>
+        </div>
 
-    <div class="card">
-        <div class="card-body login-card-body">
-            <p class="login-box-msg">Inicia sesión para continuar</p>
-
-            @if (session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
+        <div class="auth-body">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <strong>¡Oops!</strong> Las credenciales no coinciden.
+                </div>
             @endif
 
             <form action="{{ route('login.post') }}" method="POST">
                 @csrf
 
-                {{-- Email --}}
-                <div class="input-group mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="Correo electrónico" value="{{ old('email') }}" required autofocus>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
-                        </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <div class="input-group-custom">
+                        <i class="fas fa-envelope"></i>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            id="email"
+                            class="form-control @error('email') is-invalid @enderror" 
+                            placeholder="ejemplo@correo.com" 
+                            value="{{ old('email') }}" 
+                            required 
+                            autofocus
+                        >
                     </div>
                     @error('email')
-                        <span class="text-danger small">{{ $message }}</span>
+                        <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
 
-                {{-- Contraseña --}}
-                <div class="input-group mb-3">
-                    <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group-custom">
+                        <i class="fas fa-lock"></i>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="password"
+                            class="form-control @error('password') is-invalid @enderror" 
+                            placeholder="••••••••" 
+                            required
+                        >
                     </div>
                     @error('password')
-                        <span class="text-danger small">{{ $message }}</span>
+                        <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
 
-                {{-- Botón de Login --}}
-                <div class="row">
-                    <div class="col-8">
-                        <a href="{{ route('register') }}" class="text-center">¿No tienes cuenta? Regístrate</a>
-                    </div>
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-                    </div>
-                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                </button>
             </form>
+        </div>
+
+        <div class="auth-footer">
+            <p>¿No tienes una cuenta? <a href="{{ route('register') }}">Regístrate aquí</a></p>
         </div>
     </div>
 </div>

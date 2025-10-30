@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
@@ -16,18 +16,19 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:100',
-            'email' => 'required|email|unique:usuarios,email',
-            'contrasenia' => 'required|min:4|confirmed',
+            'name' => 'required|string|max:100',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:4|confirmed',
         ]);
 
-        Usuario::create([
-            'nombre' => $request->nombre,
+        User::create([
+            'name' => $request->name,
             'email' => $request->email,
-            'contrasenia' => Hash::make($request->password),
-            'estado' => 1,
-            'rol_id' => 2, // Por ejemplo: 2 = usuario normal
+            'password' => Hash::make($request->password),
+            'status' => 1,
+            'role_id' => 2, // Por ejemplo: 2 = usuario normal
         ]);
+        // dd('LOGIN REQUEST', $request->all());
 
         return redirect()->route('login')->with('success', 'Registro exitoso. Ahora puedes iniciar sesión.');
     }

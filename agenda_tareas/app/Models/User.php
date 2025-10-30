@@ -2,62 +2,68 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Hash;
 
-class Usuario extends Authenticatable
+class User extends Authenticatable
 {
+    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $table = 'usuarios';
+    protected $table = 'users';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
     protected $fillable = [
-        'nombre',
+        'name',
         'email',
-        'contrasenia',
-        'estado',
-        'rol_id',
+        'password',
+        'role_id',
+        'status',
     ];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
     protected $hidden = [
-        'contrasenia',
-        'remember_token', // 👈 ocultamos el token
+        'password',
+        'remember_token',
     ];
 
     /**
-     * 🔐 Laravel busca 'password' por defecto, pero usamos 'contrasenia'.
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
      */
-    public function getAuthPassword()
+    protected function casts(): array
     {
-        return $this->contrasenia;
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 
     /**
-     * ⚙️ Mutador opcional: si asignas $usuario->contrasenia = '123456',
-     * se guarda automáticamente hasheado.
+     * 🔗 Relationships
      */
-    public function setContraseniaAttribute($value)
+    public function role()
     {
-        $this->attributes['contrasenia'] = Hash::make($value);
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
-    /**
-     * 🔗 Relaciones
-     */
-    public function rol()
+    public function subjects()
     {
-        return $this->belongsTo(Rol::class, 'rol_id');
+        return $this->hasMany(Subject::class, 'user_id');
     }
 
-    public function materias()
+    public function tasks()
     {
-        return $this->hasMany(Materia::class, 'usuario_id');
-    }
-
-    public function tareas()
-    {
-        return $this->hasMany(Tarea::class, 'usuario_id');
+        return $this->hasMany(Task::class, 'user_id');
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.tabler')
+@extends('layouts.app')
 
 @section('title', 'Mi Agenda')
 
@@ -93,7 +93,7 @@
                             <div class="row align-items-center">
                                 <div class="col">
                                     <div class="text-truncate">{{ $tarea }}</div>
-                                    <div class="text-muted small">Vence en 3 días</div>
+                                    <div class="text-light small">Vence en 3 días</div>
                                 </div>
                                 <div class="col-auto">
                                     <span class="badge bg-primary">Pendiente</span>

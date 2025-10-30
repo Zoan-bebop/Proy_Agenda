@@ -63,7 +63,7 @@
                 @if (Route::has('login'))
                     @auth
                         <div class="nav-item">
-                            <a href="{{ route('home') }}" class="btn btn-primary">
+                            <a href="{{ route('auth.home') }}" class="btn btn-primary">
                                 <i class="fas fa-tachometer-alt me-2"></i>
                                 Panel de Control
                             </a>
@@ -123,7 +123,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <h3 class="font-weight-medium">Gestión de Tareas</h3>
-                                                    <div class="text-muted">
+                                                    <div class="text-light">
                                                         Organiza tus tareas por materias y prioridades con nuestra interfaz intuitiva
                                                     </div>
                                                 </div>
@@ -142,7 +142,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <h3 class="font-weight-medium">Recordatorios</h3>
-                                                    <div class="text-muted">
+                                                    <div class="text-light">
                                                         Notificaciones para nunca perder una fecha límite
                                                     </div>
                                                 </div>
@@ -161,7 +161,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <h3 class="font-weight-medium">Y mas...</h3>
-                                                    <div class="text-muted">
+                                                    <div class="text-light">
                                                         Descubre todas las funcionalidades que ofrecemos
                                                     </div>
                                                 </div>

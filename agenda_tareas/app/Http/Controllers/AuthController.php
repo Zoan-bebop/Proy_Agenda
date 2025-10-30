@@ -37,7 +37,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             // Depuración en caso de éxito: usuario autenticado y ruta de redirección
-            return redirect()->route('home'); // o tu ruta principal
+            return redirect()->route('auth.home'); // o tu ruta principal
         }
 
         // Depuración en caso de fallo de autenticación

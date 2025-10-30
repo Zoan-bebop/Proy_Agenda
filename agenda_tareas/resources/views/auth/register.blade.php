@@ -51,7 +51,7 @@
                         <div class="card-body p-4">
                             <div class="mb-4 text-center">
                                 <h1 class="h3 mb-1"><i class="fas fa-user-plus me-2"></i>Crear Cuenta</h1>
-                                <p class="text-muted mb-0">Únete a nuestra plataforma</p>
+                                <p class="text-light mb-0">Únete a nuestra plataforma</p>
                             </div>
 
                             @if ($errors->any())
@@ -149,7 +149,7 @@
                                 </div>
                             </form>
 
-                            <div class="text-center text-muted">
+                            <div class="text-center text-light">
                                 <small>¿Ya tienes cuenta? <a href="{{ route('login') }}">Inicia sesión aquí</a></small>
                             </div>
                         </div>

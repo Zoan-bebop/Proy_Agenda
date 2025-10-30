@@ -1,0 +1,5 @@
+INSERT INTO subjects (id, user_id, name, description, status, created_at, updated_at) VALUES (1, 8, 'Base de Datos Geográfica', 'Bases de datos geográficas.', true, NOW(), NOW()), (2, 8, 'Administración de Servidores I', 'Creación y Administración de servidores,', true, NOW(), NOW()), (3, 8, 'Programación Backend', 'Desarrollo.', true, NOW(), NOW()), (2, 8, 'Programación Frontend', 'Desarrollo,', true, NOW(), NOW()), (3, 8, 'Redes', 'Topología y mantenimiento.', true, NOW(), NOW());;
+INSERT 0 3
+
+
+INSERT INTO tasks (id, user_id, subject_id, topic, due_date, status_id, created_at, updated_at) VALUES (12, 2, 1, 'Configurar entorno de desarrollo React', '2025-08-05', 1, NOW(), NOW());

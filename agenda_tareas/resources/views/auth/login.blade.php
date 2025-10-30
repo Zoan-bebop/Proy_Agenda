@@ -64,7 +64,7 @@
                             <i class="fas fa-exclamation-circle me-2"></i>
                             <div>
                                 <h4 class="alert-title">¡Oops!</h4>
-                                <div class="text-muted">Las credenciales no coinciden.</div>
+                                <div class="text-light">Las credenciales no coinciden.</div>
                             </div>
                         </div>
                     </div>
